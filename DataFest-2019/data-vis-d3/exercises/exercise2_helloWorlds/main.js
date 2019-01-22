@@ -45,7 +45,7 @@ var circles = svg.selectAll('circle')
   .data(planets)
   .enter()
   .append("circle")
-	.attr("cx", function(d) {return d.distance / 3 })
+	.attr("cx", function(d) {return d.distance / 3; })
 	.attr("cy", 200)
 	.attr("r", function (d) { return d.radius / 1000; })
 	.style("fill", function (d) { return d.color; });
@@ -53,12 +53,12 @@ var circles = svg.selectAll('circle')
 // d3.enter() creates a "selection" matching data for which we do not yet have a corresponding ui element.
 // For each of these, let's create a circle.
 // The radius and horizontal position are computed from the data.
-circles.enter()
-  .append('circle')
-  .attr('r',function(d){ return d.radius/1000; } )         //Computed via data source
-  .attr('cx',function(d,i){ return d.distance / 3; })  //Computed via iteration
-  .attr('cy',200)                                   //Static
-  .attr('fill', function (d) { return d.color; });   // from data source
+//circles.enter()
+//  .append('circle')
+//  .attr('r',function(d){ return d.radius/1000; } )         //Computed via data source
+//  .attr('cx',function(d,i){ return d.distance / 3; })  //Computed via iteration
+//  .attr('cy',200)                                   //Static
+//  .attr('fill', function (d) { return d.color; });   // from data source
 
 // TO DO: add labels to the plants
 var gText = svg.selectAll("gText")
