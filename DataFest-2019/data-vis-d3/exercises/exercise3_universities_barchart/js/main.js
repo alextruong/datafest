@@ -12,6 +12,18 @@ d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 	// TO DO: finish formatting the data as integers
 	data.forEach(function(d){
 		d.percentage_nonneedbased_aid = +d.percentage_nonneedbased_aid;
+		d.four_year_grad_rate = +d.four_year_grad_rate;
+		d.admit_rate = +d.admit_rate;
+		d.avg_grad_debt = +d.avg_grad_debt;
+		d.avg_needbased_aid = +d.avg_needbased_aid;
+		d.instate_tuition = +d.instate_tuition;
+		d.rank = +d.rank;
+		d.value_rank = +d.value_rank;
+		d.grad_salary = +d.grad_salary;
+		d.total_cost_per_year = +d.total_cost_per_year;
+		d.tuition_and_fees = +d.tuition_and_fees;
+		d.undergrad_enrollment = +d.undergrad_enrollment;
+		d.avg_nonneedbased_aid = +d.avg_nonneedbased_aid;
 
 	});
 
@@ -19,7 +31,13 @@ d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 	// You'll need to use a compare function on the grad_salary property
 	// https://www.w3schools.com/js/js_array_sort.asp
 
-	var sortedData;
+	function sortData(unsortedData,sortOn){
+		var sorted = unsortedData.sort(function(a, b){
+			return b[sortOn]-a[sortOn];
+		});
+		return sorted;
+	}
+	var sortedData = sortData(data, "grad_salary");
 	console.log(sorted_data);
 
 })
