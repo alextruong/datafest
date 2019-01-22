@@ -35,7 +35,7 @@ for (var i = 0; i < planetDiameters.length; i++){
 // create the svg, same as before.
 var svg = d3.select("body").append("svg")
   .attr('height',600)                             //Is this big enough?
-  .attr('width',600);
+  .attr('width',2000);
 
 // Now, let's select circle elements (which do not yet exist!) and bind them to our data
 // This is the infamous "data join!"
@@ -55,10 +55,10 @@ var circles = svg.selectAll('circle')
 // The radius and horizontal position are computed from the data.
 circles.enter()
   .append('circle')
-  .attr('r',function(d){ return d/1000; } )         //Computed via data source
-  .attr('cx',function(d,i){ return 50 + (i*50); })  //Computed via iteration - currently same distance between each plant.
-  .attr('cy',100)                                   //Static
-  .attr('fill','blue');                             //Change to a data source
+  .attr('r',function(d){ return d.radius/1000; } )         //Computed via data source
+  .attr('cx',function(d,i){ return d.distance / 3; })  //Computed via iteration
+  .attr('cy',200)                                   //Static
+  .attr('fill', function (d) { return d.color; });   // from data source
 
 // TO DO: add labels to the plants
 var gText = svg.selectAll("gText")
