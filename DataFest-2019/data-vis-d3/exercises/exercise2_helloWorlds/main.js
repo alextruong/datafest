@@ -23,6 +23,14 @@ var planetNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Ur
 var planets = [];
 
 //TO DO: join the datasets into one array of objects
+for (var i = 0; i < planetDiameters.length; i++){
+  planet = {};
+  planet.name = planetNames[i];
+  planet.radius = planetDiameters[i] / 2;
+  planet.distance = planetDistances[i];
+  planet.color = planetColors[i];
+  planets.push(planet);
+}
 
 // create the svg, same as before.
 var svg = d3.select("body").append("svg")
@@ -34,7 +42,13 @@ var svg = d3.select("body").append("svg")
 
 // TO DO: change this so it uses the planets array from above; make sure to fix the code below that it will break
 var circles = svg.selectAll('circle')
-  .data(planetRadii);
+  .data(planets)
+  .enter()
+  .append("circle")
+	.attr("cx", function(d) {return d.distance / 3 })
+	.attr("cy", 200)
+	.attr("r", function (d) { return d.radius / 1000; })
+	.style("fill", function (d) { return d.color; });
 
 // d3.enter() creates a "selection" matching data for which we do not yet have a corresponding ui element.
 // For each of these, let's create a circle.
@@ -47,5 +61,22 @@ circles.enter()
   .attr('fill','blue');                             //Change to a data source
 
 // TO DO: add labels to the plants
+var gText = svgContainer.selectAll("gText")
+			.data(planets)
+			.enter()
+        .append("g")
+			  .attr("y", 10)
+			  .attr("transform", function(d, i){
+          return "translate(" + (d.distance / 1000) + ",200)";
+        });
 
 // TO DO: Make the colors and radiuses use the data source; you will need to scale the radii and distances
+gText.append("text")
+			.text(function(d, i) {
+        return d.name;
+      })
+			.attr("text-anchor","start")
+			.attr("transform", function(d, i){
+        return("translate(" + (d.distance / 3) + ",-" + (10 + d.radius/1000) +")rotate(-45,0,0)");
+      });
+
