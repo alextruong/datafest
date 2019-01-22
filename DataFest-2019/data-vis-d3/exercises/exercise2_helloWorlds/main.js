@@ -61,7 +61,7 @@ circles.enter()
   .attr('fill','blue');                             //Change to a data source
 
 // TO DO: add labels to the plants
-var gText = svgContainer.selectAll("gText")
+var gText = svg.selectAll("gText")
 			.data(planets)
 			.enter()
         .append("g")
