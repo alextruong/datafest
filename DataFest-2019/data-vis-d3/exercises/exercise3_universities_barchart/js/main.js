@@ -39,6 +39,7 @@ d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 	}
 	var sortedData = sortData(data, "grad_salary");
 	console.log(sorted_data);
+	
 
 })
 
@@ -55,21 +56,29 @@ d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 	var xscale = d3.scaleLinear()
 		.domain([0, d3.max(sortedData, function(d) {
 			// TO DO return the highest grad salary
+			return d.grad_salary;
 		})])
 		.range([0, barChartWidth]);
 
-	var xAxis = d3.axisTop()
+	var xAxis = d3.axisBottom()
 							// TO DO call the scale here
+							.tickSizeOuter(0)
+							.ticks(10)
+							.scale(xscale);
+
+	var xBarAxis = d3.axisTop()
+							.scale(xscale)
 							.tickSizeOuter(0);
 
 	var xBarGroup = barChart.append("g")
 		.attr("class", "axis x-axis")
 		.attr("transform", "translate(0,-10)")
 		//TO DO call the axis here
+		.call(xBarAxis);
 
 	var yscale = d3.scaleLinear()
 		//TO DO add a domain from 0 to the length of the sorted data
-		.domain([,])
+		.domain([0, sortedData.length])
 		.range([0, barChartHeight]);
 
 	// Add the bars
@@ -83,6 +92,12 @@ d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 		.data(sortedData)
 		.enter()
 			//Do work here
+			.append("rect")
+			.attr("class", "schoolBar")
+			.attr("height", barHeight)
+			.attr("width", function(d){
+				return xscale(d.grad_salary);
+			})
 			.attr("y", function(d, i){
 				return yscale(i);
 			})
@@ -98,14 +113,14 @@ d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 			.attr("class", "barLabels")
 			.text(function(d){
 				//TO DO: give the bars dynamic labels
-				return "LABEL";
+				return(`${d.name} | (${d.rank}) | $${d.grad_salary}`)
 			})
 			.attr("x", function(d){
 				return xscale(d.grad_salary) + 3
 			})
 			//TO DO: give it a y value using the yscale and i. See the x value above as an example
 			.attr("y", function(d,i){
-
+				return yscale(i)+8
 			});
 
 });
