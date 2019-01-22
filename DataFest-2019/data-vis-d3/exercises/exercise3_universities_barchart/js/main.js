@@ -7,7 +7,7 @@ var barChartWidth = 1500 - margin.left - margin.right,
 // TO DO: Load the data with d3.csv
 d3.csv("data/universities_ranked_2017_conferences.csv", function(data){
 	// TO DO: Log the data to the console and see what it looks like
-	console.log(data);;
+	console.log(data);
 
 	// TO DO: finish formatting the data as integers
 	data.forEach(function(d){
